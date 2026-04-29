@@ -22,10 +22,16 @@ in
 	home.stateVersion = "25.11";
 
 	programs.bash.enable = true;
+
 	programs.git = {
 		enable = true;
 		userName = "ghetto";
 		userEmail = "ghetto.ch@gmail.com";
+	};
+
+	programs.lazygit = {
+		enable = true;
+		shellWrapperName = "lg";
 	};
 
 	home.packages = with pkgs; [
