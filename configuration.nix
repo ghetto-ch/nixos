@@ -22,10 +22,18 @@
 		packages = with pkgs; [
 			tree
 		];
+		openssh.authorizedKeys.keys = [
+			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImI+EAQDenPCxUU9byjgRZWclC12SOTqsjo4PLuqqHm ghetto.ch@gmail.com"
+		];
 	};
 
 	programs.firefox.enable = true;
 	programs.niri.enable = true;
+	programs.dms-shell = {
+		enable = true;
+		enableSystemMonitoring = true;
+	};
+
 	virtualisation.vmware.guest.enable = true;
 
 	environment.systemPackages = with pkgs; [
