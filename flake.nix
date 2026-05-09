@@ -25,7 +25,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nixos = ./nixos-qemu/home.nix;
+              home-manager.users.ghetto = ./nixos-qemu/home.nix;
             }
           ];
         };
@@ -40,7 +40,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nixos = ./gondolin/home.nix;
+              home-manager.users.ghetto = ./gondolin/home.nix;
             }
           ];
         };
