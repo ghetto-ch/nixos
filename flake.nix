@@ -40,7 +40,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./nixos-qemu/configuration.nix
-            nixos-wsl.nixosModules.default
             {
               system.stateVersion = "25.11";
               wsl.enable = true;
@@ -60,7 +59,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./gondolin/configuration.nix
-            nixos-wsl.nixosModules.default
             {
               system.stateVersion = "25.11";
               wsl.enable = true;
