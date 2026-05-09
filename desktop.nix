@@ -4,7 +4,7 @@
     dms-shell
   ];
 
-  # programs.niri.enable = true;
+  programs.niri.enable = true;
 
   services.displayManager.dms-greeter = {
     enable = true;
