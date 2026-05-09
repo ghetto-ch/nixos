@@ -42,7 +42,6 @@
             ./nixos-qemu/configuration.nix
             {
               system.stateVersion = "25.11";
-              wsl.enable = true;
             }
             home-manager.nixosModules.home-manager
             {
@@ -61,7 +60,6 @@
             ./gondolin/configuration.nix
             {
               system.stateVersion = "25.11";
-              wsl.enable = true;
             }
             home-manager.nixosModules.home-manager
             {
