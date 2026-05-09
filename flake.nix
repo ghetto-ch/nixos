@@ -1,32 +1,79 @@
 {
-	description = "NixOS - gondolin";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+  };
 
-	inputs = {
-		nixpkgs.url = "nixpkgs/nixos-unstable";
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-wsl, ... }:
+    {
 
-		home-manager = {
-			url = "github:nix-community/home-manager/master";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+      nixpkgs.config.allowUnfree = true;
+      home.enableNixpkgsReleaseCheck = false;
 
-	};
+      nixosConfigurations = {
+        nixos-wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos-wsl/configuration.nix
+            nixos-wsl.nixosModules.default
+            {
+              system.stateVersion = "25.11";
+              wsl.enable = true;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.nixos = ./nixos-wsl/home.nix;
+            }
+          ];
+        };
 
-	outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-		nixosConfigurations.gondolin = nixpkgs.lib.nixosSystem {
-			system = "x86_64-linux";
-			modules = [
-				./configuration.nix
-					home-manager.nixosModules.home-manager
-					{
-						home-manager = {
-							useGlobalPkgs = true;
-							useUserPackages = true;
-							users.ghetto = import ./home.nix;
-							backupFileExtension = "bck";
-							extraSpecialArgs = { inherit inputs; };
-						};
-					}
-			];
-		};
-	};
+        nixos-qemu = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos-qemu/configuration.nix
+            nixos-wsl.nixosModules.default
+            {
+              system.stateVersion = "25.11";
+              wsl.enable = true;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.nixos = ./nixos-qemu/home.nix;
+            }
+          ];
+        };
+
+        gondolin = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./gondolin/configuration.nix
+            nixos-wsl.nixosModules.default
+            {
+              system.stateVersion = "25.11";
+              wsl.enable = true;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.nixos = ./gondolin/home.nix;
+            }
+          ];
+        };
+      };
+    };
 }
