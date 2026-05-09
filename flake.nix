@@ -15,34 +15,31 @@
       home.enableNixpkgsReleaseCheck = false;
 
       nixosConfigurations = {
-        nixos-wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./nixos-wsl/configuration.nix
-            nixos-wsl.nixosModules.default
-            {
-              system.stateVersion = "25.11";
-              wsl.enable = true;
-            }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.nixos = ./nixos-wsl/home.nix;
-            }
-          ];
-        };
+        # nixos-wsl = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = { inherit inputs; };
+        #   modules = [
+        #     ./nixos-wsl/configuration.nix
+        #     nixos-wsl.nixosModules.default
+        #     {
+        #       system.stateVersion = "25.11";
+        #       wsl.enable = true;
+        #     }
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager.useGlobalPkgs = true;
+        #       home-manager.useUserPackages = true;
+        #       home-manager.extraSpecialArgs = { inherit inputs; };
+        #       home-manager.users.nixos = ./nixos-wsl/home.nix;
+        #     }
+        #   ];
+        # };
 
         nixos-qemu = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
             ./nixos-qemu/configuration.nix
-            {
-              system.stateVersion = "25.11";
-            }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -58,9 +55,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./gondolin/configuration.nix
-            {
-              system.stateVersion = "25.11";
-            }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
