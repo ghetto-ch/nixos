@@ -41,7 +41,7 @@
   };
 
   programs.fish.enable = true;
-  # programs.niri.enable = true;
+  programs.niri.enable = true;
 
   # Unset system aliases so that I can use eza instead of standard ls
   environment.shellAliases = {
