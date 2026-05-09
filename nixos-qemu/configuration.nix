@@ -33,6 +33,7 @@
 	environment.systemPackages = with pkgs; [
     git
     wl-clipboard
+    dms-shell
 	];
 
   programs.neovim = {
@@ -42,6 +43,11 @@
 
   programs.fish.enable = true;
   programs.niri.enable = true;
+
+  services.displayManager.dms-greeter = {
+    enable = true;
+    compositor.name = "niri";
+  };
 
   # Unset system aliases so that I can use eza instead of standard ls
   environment.shellAliases = {
