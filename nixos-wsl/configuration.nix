@@ -5,8 +5,8 @@
     # ...
   ];
 
-  wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  # wsl.enable = true;
+  # wsl.defaultUser = "nixos";
 
   nixpkgs.config.allowUnfree = true;
 
